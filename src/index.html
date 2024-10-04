@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+    <link rel="stylesheet" href="./css/output.css">
+</head>
+<body>
+    <div id="js-modal-partida" class="hidden m-auto w-full h-full fixed top-0 z-10 flex justify-center items-center bg-[#0000004a]">
+        <dialog id="js-modal-iniciar-partida" class="m-auto z-20 border-0 ">
+            <section class="p-4">
+                <form onsubmit="criarJogador(document.getElementById('js-input-nome-jog01').value , document.getElementById('js-input-nome-jog02').value , event)">
+                    <div class="">
+                        <input id="js-input-nome-jog01" type="text" placeholder="Nome do Jogador 01" required>
+                    </div>
+                    <div class="">
+                        <input id="js-input-nome-jog02" type="text" placeholder="Nome do Jogador 02" required>
+                    </div>
+                    <button type="submit" class="m-4 p-2 w-36 bg-green-500 text-white font-bold">Criar Jogador</button>
+                </form>
+            </section>
+        </dialog>
+    </div>
+    <header class=" flex justify-between p-6 bg-red-500">
+        <section class="">
+            <h2 id="js-nome-jogador01">Jogador 01</h2>
+            <div class="">
+                <input type="number">
+            </div>
+        </section>
+        <section class="">
+            <h2 id="js-nome-jogador02">Jogador 02</h2>
+            <div class="">
+                <input type="number">
+            </div>
+        </section>
+    </header>
+    <main class="flex items-center justify-between bg-blue-500">
+        <section class="p-6">
+            <div class="flex flex-col">
+                <input type="number">
+                <button class="mt-2 p-2 bg-green-500 text-white font-bold">Jogar</button>
+            </div>
+        </section>
+        <section class="p-2 bg-red-500 text-center">
+            <span class="block pb-3">Jogada</span>
+            <div class="flex">
+                <div class="border-r-2 p-2">
+                    <ul>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                        <li>001</li>
+                    </ul>
+                </div>
+                <div class="p-2">
+                    <ul>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                        <li>100</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="p-6">
+            <div class="flex flex-col">
+                <input type="number">
+                <button class="mt-2 p-2 bg-green-500 text-white font-bold">Jogar</button>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-red-500 p-4">
+        <section class="flex justify-between items-center">
+            <div class="">
+                <button class="w-36 p-2 text-white font-bold bg-black">Restart</button>
+            </div>
+            <div class="">
+                <button id="js-button-iniciar-partida" class="w-36 p-2 text-white font-bold bg-green-500" onclick="iniciarPartida()">Iniciar</button>
+            </div>
+            <div class="">
+                <button class="w-36 p-2 text-white font-bold bg-yellow-500">Finalizar</button>
+            </div>
+        </section>
+    </footer>
+    <script src="js.js"></script>
+</body>
+</html>
