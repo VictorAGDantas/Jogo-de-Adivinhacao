@@ -17,6 +17,8 @@ let numeroMaximo = document.getElementById("js-numero-maximo");
 let numeroMinino = document.getElementById("js-numero-minimo");
 let botaoJogarJog01 = document.getElementById("js-botao-jog01");
 let botaoJogarJog02 = document.getElementById("js-botao-jog02");
+let jogadasAnterioresJog01 = document.getElementById("js-numeros-anteriores-01")
+let jogadasAnterioresJog02 = document.getElementById("js-numeros-anteriores-02")
 let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
@@ -48,8 +50,19 @@ function iniciarPartida () {
     abrirModal.showModal();
 }
 
-function jogar (value, jogador) {
-
+function registroJogadas (numeroJogado, nomeJogador) {
+    if (numeroJogado < 10) {
+        numeroJogado = "0" + numeroJogado
+    }
+    if (nomeJogador) {
+        const li = document.createElement('li');
+        li.textContent = numeroJogado;
+        jogadasAnterioresJog01.prepend(li);
+    } else {
+        const li = document.createElement('li');
+        li.textContent = numeroJogado;
+        jogadasAnterioresJog02.prepend(li);
+    }
 }
 
 let vitoriaJog01 = 0
@@ -74,31 +87,6 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             vitoriaJog02 += 1
         }
 
-        //let proximaJogada = jogarNovamente()
-
-        // if (proximaJogada) {
-        //     jogador01 = true
-        //     jogador02 = false
-        //     menorNumero = 0
-        //     numeroMaximo = Number(prompt("Digite o maior número que pode ser sorteado: "))
-        //     maiorNumero = numeroMaximo
-        //     geradorNumeroAleatorio(numeroMaximo)
-        //     solicitarNumeroJogador(receberNomeJogador01, receberNomeJogador02)
-
-        // } else {
-        //     console.log("JOGO ENCERRADO!!")
-
-        //     if (vitoriaJog01 > vitoriaJog02) {
-        //         console.log(receberNomeJogador01 + " GANHOU, por " + vitoriaJog01 + " X " + vitoriaJog02)
-
-        //     } else if (vitoriaJog01 < vitoriaJog02) {
-        //         console.log(receberNomeJogador02 + " GANHOU, por " + vitoriaJog02 + " X " + vitoriaJog01)
-
-        //     } else {
-        //         console.log("JOGO EMPATADO, por " + vitoriaJog01 + " X " + vitoriaJog02)
-        //     }
-        // }
-
     } else {
 
         if (novoNumeroUsuario > numeroAleatorio) {
@@ -120,9 +108,14 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             botaoJogarJog02.disabled = true;
             botaoJogarJog01.disabled = false;
         }
+
+        
         //solicitarNumeroJogador(receberNomeJogador01, receberNomeJogador02)
     }
-} 
+
+    registroJogadas(novoNumeroUsuario, jogador);
+
+}
 
 function jogarNovamente () {
 

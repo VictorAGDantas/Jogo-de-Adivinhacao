@@ -56,38 +56,18 @@
         <section class="p-6">
             <div class="flex flex-col">
                 <input id="js-input-valor-jog01"  class="text-center rounded-md" type="number" placeholder="Digite um número">
-                <button id="js-botao-jog01" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-gray-500" onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog01').value, true)">Jogar</button>
+                <button type="button" id="js-botao-jog01" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-gray-400" onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog01').value, true)">Jogar</button>
             </div>
         </section>
         <section class="p-2 bg-red-500 text-center">
             <span class="block pb-3">Jogada</span>
             <div class="flex">
                 <div class="border-r-2 p-2">
-                    <ul>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
-                        <li>001</li>
+                    <ul id="js-numeros-anteriores-01" class="max-h-52 min-h-52 overflow-x-hidden scroll-smooth">
                     </ul>
                 </div>
                 <div class="p-2">
-                    <ul>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
-                        <li>100</li>
+                    <ul id="js-numeros-anteriores-02" class="max-h-52 min-h-52 overflow-x-hidden scroll-smooth">
                     </ul>
                 </div>
             </div>
@@ -95,7 +75,7 @@
         <section class="p-6">
             <div class="flex flex-col">
                 <input id="js-input-valor-jog02" class="text-center rounded-md" type="number" placeholder="Digite um número">
-                <button id="js-botao-jog02" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-gray-500" disabled onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog02').value, false)">Jogar</button>
+                <button type="button" id="js-botao-jog02" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-gray-400" disabled onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog02').value, false)">Jogar</button>
             </div>
         </section>
     </main>
