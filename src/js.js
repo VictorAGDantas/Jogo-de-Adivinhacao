@@ -17,8 +17,10 @@ let numeroMaximo = document.getElementById("js-numero-maximo");
 let numeroMinino = document.getElementById("js-numero-minimo");
 let botaoJogarJog01 = document.getElementById("js-botao-jog01");
 let botaoJogarJog02 = document.getElementById("js-botao-jog02");
-let jogadasAnterioresJog01 = document.getElementById("js-numeros-anteriores-01")
-let jogadasAnterioresJog02 = document.getElementById("js-numeros-anteriores-02")
+let jogadasAnterioresJog01 = document.getElementById("js-numeros-anteriores-01");
+let jogadasAnterioresJog02 = document.getElementById("js-numeros-anteriores-02");
+let placarVitoriaJog01 = document.getElementById("js-placar-jog01");
+let placarVitoriaJog02 = document.getElementById("js-placar-jog02");
 let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
@@ -65,10 +67,12 @@ function registroJogadas (numeroJogado, nomeJogador) {
     }
 }
 
-let vitoriaJog01 = 0
-let vitoriaJog02 = 0
-
 //let numeroMaximo = 10 //Number(prompt("Digite o maior número que pode ser sorteado: "))
+
+
+function inserirVitoriaJogador (pontosJogador) {
+    pontosJogador.value = parseInt(pontosJogador.value) + 1;
+}
 
 
 function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
@@ -79,12 +83,12 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
         console.log("Numeros Iguais")
 
         if(jogador) {
+            inserirVitoriaJogador(placarVitoriaJog01)
             console.log("Jogador " + nomeJogador01 + " GANHOUU!!!")
-            vitoriaJog01 += 1
 
         } else {
+            inserirVitoriaJogador(placarVitoriaJog02)
             console.log("Jogador " + nomeJogador02 + " GANHOUU!!!")
-            vitoriaJog02 += 1
         }
 
     } else {
