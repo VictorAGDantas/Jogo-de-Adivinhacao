@@ -4,5 +4,10 @@
 @layer utilities {
     ul#js-numeros-anteriores-01::-webkit-scrollbar, ul#js-numeros-anteriores-02::-webkit-scrollbar {
         display: none;
-    };
-};
+    }
+
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+    }

@@ -654,6 +654,10 @@ video {
   min-width: 10rem;
 }
 
+.min-w-80 {
+  min-width: 20rem;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -672,6 +676,14 @@ video {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
+}
+
+.overflow-visible {
+  overflow: visible;
 }
 
 .overflow-x-hidden {
@@ -809,6 +821,11 @@ video {
   line-height: 1;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -824,9 +841,14 @@ video {
 
 ul#js-numeros-anteriores-01::-webkit-scrollbar, ul#js-numeros-anteriores-02::-webkit-scrollbar {
   display: none;
-};
+}
 
-.disabled\:bg-gray-600:disabled {
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.disabled\:bg-disableButton:disabled {
   --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
-};
+  background-color: rgb(85 85 85 / var(--tw-bg-opacity));
+}

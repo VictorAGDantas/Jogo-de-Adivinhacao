@@ -21,6 +21,18 @@ let jogadasAnterioresJog01 = document.getElementById("js-numeros-anteriores-01")
 let jogadasAnterioresJog02 = document.getElementById("js-numeros-anteriores-02");
 let placarVitoriaJog01 = document.getElementById("js-placar-jog01");
 let placarVitoriaJog02 = document.getElementById("js-placar-jog02");
+let fundoModalGanhador = document.getElementById("js-modal-ganhador-fundo");
+let modalGanhador = document.getElementById("js-modal-ganhador");
+let nomeGanhadorPartida = document.getElementById("js-nome-ganhador");
+let numeroMaximoSorteado = document.getElementById("js-input-numero-maximo");
+let placarVencedor = document.getElementById("js-modal-vencedor");
+let placarPerdedor = document.getElementById("js-modal-perdedor");
+let nomeVencedorJogo = document.getElementById("js-nome-vencedor-jogo");
+let placarVencedorJogo = document.getElementById("js-placar-vencedor-jogo");
+let nomePerdedorJogo = document.getElementById("js-nome-perdedor-jogo");
+let placarPerdedorJogo = document.getElementById("js-placar-perdedor-jogo");
+let botoesModalGanhador = document.getElementById("js-botoes-modal-ganhador");
+let fraseGanhador = document.getElementById("js-frase-ganhador");
 let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
@@ -74,6 +86,20 @@ function inserirVitoriaJogador (pontosJogador) {
     pontosJogador.value = parseInt(pontosJogador.value) + 1;
 }
 
+function ganhadorPartida (nomejogador) {
+    fundoModalGanhador.style.display = "flex"
+    modalGanhador.showModal();
+    nomejogador ? nomeGanhadorPartida.innerHTML = nomejogador : " "
+}
+
+function fecharModalGanhador () {
+    fundoModalGanhador.style.display = "none"
+    modalGanhador.close();
+    placarVencedor.style.display = "none"
+    placarPerdedor.style.display = "none"
+    botoesModalGanhador.style.display = "flex"
+}
+
 
 function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
     
@@ -83,12 +109,14 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
         console.log("Numeros Iguais")
 
         if(jogador) {
-            inserirVitoriaJogador(placarVitoriaJog01)
-            console.log("Jogador " + nomeJogador01 + " GANHOUU!!!")
+            ganhadorPartida(nomeJogador01);
+            inserirVitoriaJogador(placarVitoriaJog01);
+            console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
 
         } else {
-            inserirVitoriaJogador(placarVitoriaJog02)
-            console.log("Jogador " + nomeJogador02 + " GANHOUU!!!")
+            ganhadorPartida(nomeJogador02);
+            inserirVitoriaJogador(placarVitoriaJog02);
+            console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
         }
 
     } else {
@@ -118,6 +146,51 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
     }
 
     registroJogadas(novoNumeroUsuario, jogador);
+
+}
+
+function novaPartida () {
+    botaoJogarJog01.disabled = false;
+    botaoJogarJog02.disabled = true;
+    menorNumero = 0
+    maiorNumero = 0
+    jogadasAnterioresJog01.innerHTML = ""
+    jogadasAnterioresJog02.innerHTML = ""
+    numeroMaximoSorteado.value = parseInt(numeroMaximoSorteado.value);
+    geradorNumeroAleatorio(numeroMaximoSorteado.value);
+    fecharModalGanhador();
+}
+
+function encerrarJogo() {
+    ganhadorPartida(false);
+    placarVencedor.style.display = "flex"
+    placarPerdedor.style.display = "flex"
+    botoesModalGanhador.style.display = "none"
+
+    if (placarVitoriaJog01.value === placarVitoriaJog02.value) {
+        fraseGanhador.textContent = "Esse Jogo Está"
+        nomeGanhadorPartida.innerHTML = "EMPATADO"
+
+    } else if (placarVitoriaJog01.value > placarVitoriaJog02.value){
+        fraseGanhador.textContent = "Você Ganhou!!!"
+        nomeGanhadorPartida.innerHTML = nomeJogador01
+
+        nomeVencedorJogo.innerHTML = nomeJogador01
+        placarVencedorJogo.innerHTML = placarVitoriaJog01.value
+
+        nomePerdedorJogo.innerHTML = nomeJogador02
+        placarPerdedorJogo.innerHTML = placarVitoriaJog02.value
+
+    } else {
+        fraseGanhador.textContent = "Você Ganhou!!!"
+        nomeGanhadorPartida.innerHTML = nomeJogador02.value
+
+        nomeVencedorJogo.innerHTML = nomeJogador02
+        placarVencedorJogo.innerHTML = placarVitoriaJog02.value
+
+        nomePerdedorJogo.textContent = nomeJogador01
+        placarPerdedorJogo.innerHTML = placarVitoriaJog01.value
+    }
 
 }
 
