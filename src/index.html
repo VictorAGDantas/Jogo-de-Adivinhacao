@@ -8,17 +8,36 @@
 </head>
 <body>
     <div id="js-modal-partida" class="hidden m-auto w-full h-full fixed top-0 z-10 flex justify-center items-center bg-[#0000004a]">
-        <dialog id="js-modal-iniciar-partida" class="m-auto z-20 border-0 rounded-2xl">
+        <dialog id="js-modal-iniciar-partida" class="m-auto z-20 border-0 rounded-2xl min-w-96">
             <section class="p-4">
-                <form class="flex flex-col gap-4 justify-center items-center" onsubmit="criarJogador(document.getElementById('js-input-nome-jog01').value , document.getElementById('js-input-nome-jog02').value,document.getElementById('js-input-numero-maximo').value ,event)">
+                <form class="flex flex-col gap-4 justify-center items-center" onsubmit="criarJogador(document.getElementById('js-input-nome-jog01').value , document.getElementById('js-input-nome-jog02').value,document.getElementById('js-input-numero-maximo').value ,  document.getElementById('js-input-tempo').value ,event)">
                     <div class="">
-                        <input id="js-input-nome-jog01" class="border-black border-2 rounded-xl px-6 py-2" type="text" placeholder="Nome do Jogador 01" required>
+                        <input id="js-input-nome-jog01" class="border-black border-2 rounded-xl px-6 py-2 w-80" type="text" placeholder="Nome do Jogador 01" required>
                     </div>
                     <div class="">
-                        <input id="js-input-nome-jog02" class="border-black border-2 rounded-xl px-6 py-2" type="text" placeholder="Nome do Jogador 02" required>
+                        <input id="js-input-nome-jog02" class="border-black border-2 rounded-xl px-6 py-2 w-80" type="text" placeholder="Nome do Jogador 02" required>
                     </div>
                     <div class="">
-                        <input id="js-input-numero-maximo" class="border-black border-2 rounded-xl px-6 py-2" type="text" placeholder="Digite o maior número que possa ser sorteado:" required>
+                        <input id="js-input-numero-maximo" class="border-black border-2 rounded-xl px-6 py-2 w-80" type="text" placeholder="O maior número que possa ser sorteado:" required>
+                    </div>
+                    <div class="">
+                        <input id="js-quant-jogadas" class="border-black border-2 rounded-xl px-6 py-2 w-80" type="number" placeholder="Digite quantas jogadas deseja:">
+                    </div>
+                    <div class="flex flex-col gap-4 justify-center items-center text-center">
+                        <span class="font-bold">Time</span>
+                        <div class="flex justify-center items-center gap-4">
+                            <div class="">
+                                <input id="time-s" class="border-black border-2 rounded-xl px-6 py-2" type="radio" name="Time" value="sim" onclick="desabilitarTemporizador()">
+                                <label for="time-s">Sim</label>
+                            </div>
+                            <div class="">
+                                <input id="time-n" class="border-black border-2 rounded-xl px-6 py-2" type="radio" name="Time" value="no" checked onclick="desabilitarTemporizador()">
+                                <label for="time-n">Não</label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <input id="js-input-tempo" class="hidden border-black border-2 rounded-xl px-6 py-2 w-80" type="number" placeholder="Digite o tempo máximo em seg:">
+                        </div>
                     </div>
                     <button type="submit" class="m-4 p-2 w-36 bg-green-500 text-white font-bold rounded-lg">Criar Jogador</button>
                 </form>
@@ -88,6 +107,12 @@
     </header>
     <main class="flex items-center justify-between bg-blue-500">
         <section class="p-6">
+            <div id="js-tempo-jog01" class="">
+                <span></span>
+            </div>
+            <div id="js-fundo-frase-quem-joga-jog01" class="w-56 text-center mb-10 bg-lime-500 text-white rounded-lg h-8 flex justify-center items-center font-bold uppercase">
+                <span id="js-frase-quem-joga-jog01">Sua vez de jogar</span>
+            </div>
             <div class="flex flex-col">
                 <input id="js-input-valor-jog01"  class="text-center rounded-md" type="number" placeholder="Digite um número">
                 <button type="button" id="js-botao-jog01" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-disableButton" onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog01').value, true)">Jogar</button>
@@ -107,6 +132,12 @@
             </div>
         </section>
         <section class="p-6">
+            <div id="js-tempo-jog02" class="">
+                <span></span>
+            </div>
+            <div id="js-fundo-frase-quem-joga-jog02" class="w-56 text-center mb-10 bg-gray-500  text-white rounded-lg h-8 flex justify-center items-center font-bold uppercase">
+                <span id="js-frase-quem-joga-jog02">Vez do outro jogador</span>
+            </div>
             <div class="flex flex-col">
                 <input id="js-input-valor-jog02" class="text-center rounded-md" type="number" placeholder="Digite um número">
                 <button type="button" id="js-botao-jog02" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-disableButton" disabled onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog02').value, false)">Jogar</button>

@@ -15,6 +15,8 @@ let modalPartida = document.getElementById("js-modal-partida"); //Fundo do Dialo
 let abrirModal = document.getElementById("js-modal-iniciar-partida"); //Tag Dialog
 let numeroMaximo = document.getElementById("js-numero-maximo");
 let numeroMinino = document.getElementById("js-numero-minimo");
+let valorDigitadoJog01 = document.getElementById("js-input-valor-jog01");
+let valorDigitadoJog02 = document.getElementById("js-input-valor-jog02");
 let botaoJogarJog01 = document.getElementById("js-botao-jog01");
 let botaoJogarJog02 = document.getElementById("js-botao-jog02");
 let jogadasAnterioresJog01 = document.getElementById("js-numeros-anteriores-01");
@@ -33,6 +35,15 @@ let nomePerdedorJogo = document.getElementById("js-nome-perdedor-jogo");
 let placarPerdedorJogo = document.getElementById("js-placar-perdedor-jogo");
 let botoesModalGanhador = document.getElementById("js-botoes-modal-ganhador");
 let fraseGanhador = document.getElementById("js-frase-ganhador");
+let fundoFraseJogarJog01 = document.getElementById("js-fundo-frase-quem-joga-jog01");
+let fraseJogarJog01 = document.getElementById("js-frase-quem-joga-jog01");
+let fundoFraseJogarJog02 = document.getElementById("js-fundo-frase-quem-joga-jog02");
+let fraseJogarJog02 = document.getElementById("js-frase-quem-joga-jog02");
+let quantJogadas = document.getElementById("js-quant-jogadas");
+let ativarTimer = document.getElementById("time-s");
+let tempoTimer = document.getElementById("js-input-tempo");
+let tempoJog01 = document.querySelector("#js-tempo-jog01 span");
+let tempoJog02 = document.querySelector("#js-tempo-jog02 span");
 let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
@@ -46,17 +57,51 @@ function geradorNumeroAleatorio(numeroMaximo) {
     return numeroAleatorio
 }
 
-function criarJogador (receberNomeJogador01,receberNomeJogador02, receberNumeroMaximo, event) {
+function criarJogador (receberNomeJogador01,receberNomeJogador02, receberNumeroMaximo, tempo, event) {
     event.preventDefault();
     alterarNomeJogador01.textContent = receberNomeJogador01;
     alterarNomeJogador02.textContent = receberNomeJogador02;
     nomeJogador01 = receberNomeJogador01;
     nomeJogador02 = receberNomeJogador02;
+    menorNumero = 0
+    maiorNumero = 0
     numeroMaximo.innerHTML = receberNumeroMaximo;
     geradorNumeroAleatorio(receberNumeroMaximo);
+    placarVitoriaJog01.value = 0
+    placarVitoriaJog02.value = 0
+    botaoJogarJog01.disabled = false;
+    botaoJogarJog02.disabled = true;
+    numeroMinino.textContent = 0
+    jogadasAnterioresJog01.innerHTML = ""
+    jogadasAnterioresJog02.innerHTML = ""
+    fundoFraseJogarJog02.classList.remove("bg-lime-500");
+    fundoFraseJogarJog02.classList.add("bg-gray-500");
+    fraseJogarJog02.textContent = "Vez do outro jogador"  
+    fundoFraseJogarJog01.classList.remove("bg-gray-500");
+    fundoFraseJogarJog01.classList.add("bg-lime-500");
+    fraseJogarJog01.textContent = "Sua vez de jogar"
+    criarTemporizador(tempo, false);
     modalPartida.style.display = "none"
     abrirModal.close();
     //solicitarNumeroJogador(receberNomeJogador01,receberNomeJogador02);
+}
+
+function criarTemporizador(tempo, jogador) {
+    tempo = parseInt(tempo)
+    let intervalo = setInterval(() => {
+        !jogador ? tempoJog01.textContent = tempo : tempoJog02.textContent = tempo 
+        tempo--;
+        console.log(jogador);
+
+        if (tempo <= 0) {
+            clearInterval(intervalo)
+            !jogador ? tempoJog01.textContent = "Tempo Esgotado" : tempoJog02.textContent = "Tempo Esgotado"
+
+            solicitarNumeroJogador(null, !jogador)
+            console.log(tempoTimer.value)
+        } 
+    },1000)
+
 }
 
 function iniciarPartida () {
@@ -112,16 +157,19 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             ganhadorPartida(nomeJogador01);
             inserirVitoriaJogador(placarVitoriaJog01);
             console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
+            valorDigitadoJog01.value = null
 
         } else {
             ganhadorPartida(nomeJogador02);
             inserirVitoriaJogador(placarVitoriaJog02);
             console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
+            valorDigitadoJog02.value = null
         }
 
     } else {
 
         if (novoNumeroUsuario > numeroAleatorio) {
+            console.log(maiorNumero)
             if (novoNumeroUsuario < maiorNumero) {
                 maiorNumero = novoNumeroUsuario
             }
@@ -135,17 +183,42 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
         }
         if (jogador) {
             botaoJogarJog01.disabled = true;
+            fundoFraseJogarJog01.classList.remove("bg-lime-500");
+            fundoFraseJogarJog01.classList.add("bg-gray-500");
+            fraseJogarJog01.textContent = "Vez do outro jogador"
+            valorDigitadoJog01.value = null
+            criarTemporizador(parseInt(tempoTimer.value), true);
+
+
             botaoJogarJog02.disabled = false;
+            fundoFraseJogarJog02.classList.remove("bg-gray-500");
+            fundoFraseJogarJog02.classList.add("bg-lime-500");
+            fraseJogarJog02.textContent = "Sua vez de jogar"
+
         } else {
             botaoJogarJog02.disabled = true;
+            fundoFraseJogarJog02.classList.remove("bg-lime-500");
+            fundoFraseJogarJog02.classList.add("bg-gray-500");
+            fraseJogarJog02.textContent = "Vez do outro jogador"
+            valorDigitadoJog02.value = null
+            criarTemporizador(parseInt(tempoTimer.value), false);  
+
             botaoJogarJog01.disabled = false;
+            fundoFraseJogarJog01.classList.remove("bg-gray-500");
+            fundoFraseJogarJog01.classList.add("bg-lime-500");
+            fraseJogarJog01.textContent = "Sua vez de jogar"
         }
 
         
         //solicitarNumeroJogador(receberNomeJogador01, receberNomeJogador02)
     }
 
-    registroJogadas(novoNumeroUsuario, jogador);
+    novoNumeroUsuario.textContent = " "
+    
+    if (novoNumeroUsuario) {
+        console.log(novoNumeroUsuario);
+        registroJogadas(novoNumeroUsuario, jogador);
+    }
 
 }
 
@@ -154,9 +227,17 @@ function novaPartida () {
     botaoJogarJog02.disabled = true;
     menorNumero = 0
     maiorNumero = 0
+    numeroMinino.textContent = 0
+    numeroMaximo.innerHTML = numeroMaximoSorteado.value
     jogadasAnterioresJog01.innerHTML = ""
     jogadasAnterioresJog02.innerHTML = ""
     numeroMaximoSorteado.value = parseInt(numeroMaximoSorteado.value);
+    fundoFraseJogarJog02.classList.remove("bg-lime-500");
+    fundoFraseJogarJog02.classList.add("bg-gray-500");
+    fraseJogarJog02.textContent = "Vez do outro jogador"  
+    fundoFraseJogarJog01.classList.remove("bg-gray-500");
+    fundoFraseJogarJog01.classList.add("bg-lime-500");
+    fraseJogarJog01.textContent = "Sua vez de jogar"
     geradorNumeroAleatorio(numeroMaximoSorteado.value);
     fecharModalGanhador();
 }
@@ -194,16 +275,11 @@ function encerrarJogo() {
 
 }
 
-function jogarNovamente () {
+function desabilitarTemporizador () {
+    if (ativarTimer.checked) {
+        tempoTimer.style.display = "flex"
 
-    let respJog01 = prompt("Digite sua resposta Jog01: S/N")
-    let respJog02 = prompt("Digite sua resposta Jog02: S/N")
-
-    if(respJog01 == "S" && respJog02 == "S"){
-        return true
     } else {
-        return false
+        tempoTimer.style.display = "none"
     }
 }
-
-//solicitarNumeroJogador(nameJogador01, nameJogador02)
