@@ -48,6 +48,7 @@ let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
 let maiorNumero = 0
+let i = 1
 
 function geradorNumeroAleatorio(numeroMaximo) {
     console.log(numeroMaximo)
@@ -153,18 +154,54 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
     if (novoNumeroUsuario === numeroAleatorio) {
         console.log("Numeros Iguais")
 
-        if(jogador) {
-            ganhadorPartida(nomeJogador01);
-            inserirVitoriaJogador(placarVitoriaJog01);
-            console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
-            valorDigitadoJog01.value = null
+            if (quantJogadas.value == "") {
+                
+                if(jogador) {
+                    ganhadorPartida(nomeJogador01);
+                    inserirVitoriaJogador(placarVitoriaJog01);
+                    console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
+                    valorDigitadoJog01.value = null
+                
+                } else {
+                    ganhadorPartida(nomeJogador02);
+                    inserirVitoriaJogador(placarVitoriaJog02);
+                    console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
+                    valorDigitadoJog02.value = null
+                }
 
-        } else {
-            ganhadorPartida(nomeJogador02);
-            inserirVitoriaJogador(placarVitoriaJog02);
-            console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
-            valorDigitadoJog02.value = null
-        }
+            } else {
+
+                if(jogador) {
+                    inserirVitoriaJogador(placarVitoriaJog01);
+                    console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
+                    valorDigitadoJog01.value = null
+                    jogadasAnterioresJog01.innerHTML = " "
+                    jogadasAnterioresJog02.innerHTML = " "
+                    
+                    if (i < quantJogadas.value) {
+                        ++i
+                        console.log("i é " + i )
+                        novaPartida();
+    
+                    } else {
+                        encerrarJogo();
+                    }
+                
+                } else {
+                    inserirVitoriaJogador(placarVitoriaJog02);
+                    console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
+                    valorDigitadoJog02.value = null
+
+                    if (i < quantJogadas.value) {
+                        ++i
+                        console.log("i é " + i )
+                        novaPartida();
+    
+                    } else {
+                        encerrarJogo();
+                    }
+                }
+            }
 
     } else {
 
@@ -181,6 +218,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
                 numeroMinino.innerHTML = menorNumero;
             }
         }
+
         if (jogador) {
             botaoJogarJog01.disabled = true;
             fundoFraseJogarJog01.classList.remove("bg-lime-500");
@@ -196,6 +234,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             fraseJogarJog02.textContent = "Sua vez de jogar"
 
         } else {
+
             botaoJogarJog02.disabled = true;
             fundoFraseJogarJog02.classList.remove("bg-lime-500");
             fundoFraseJogarJog02.classList.add("bg-gray-500");
@@ -207,19 +246,15 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             fundoFraseJogarJog01.classList.remove("bg-gray-500");
             fundoFraseJogarJog01.classList.add("bg-lime-500");
             fraseJogarJog01.textContent = "Sua vez de jogar"
-        }
-
-        
-        //solicitarNumeroJogador(receberNomeJogador01, receberNomeJogador02)
-    }
+        }   
+    }   
 
     novoNumeroUsuario.textContent = " "
     
-    if (novoNumeroUsuario) {
+    if (novoNumeroUsuario && novoNumeroUsuario != numeroAleatorio) {
         console.log(novoNumeroUsuario);
         registroJogadas(novoNumeroUsuario, jogador);
     }
-
 }
 
 function novaPartida () {
@@ -229,8 +264,8 @@ function novaPartida () {
     maiorNumero = 0
     numeroMinino.textContent = 0
     numeroMaximo.innerHTML = numeroMaximoSorteado.value
-    jogadasAnterioresJog01.innerHTML = ""
-    jogadasAnterioresJog02.innerHTML = ""
+    jogadasAnterioresJog01.innerHTML = " "
+    jogadasAnterioresJog02.innerHTML = " "
     numeroMaximoSorteado.value = parseInt(numeroMaximoSorteado.value);
     fundoFraseJogarJog02.classList.remove("bg-lime-500");
     fundoFraseJogarJog02.classList.add("bg-gray-500");
@@ -251,6 +286,13 @@ function encerrarJogo() {
     if (placarVitoriaJog01.value === placarVitoriaJog02.value) {
         fraseGanhador.textContent = "Esse Jogo Está"
         nomeGanhadorPartida.innerHTML = "EMPATADO"
+
+        nomeVencedorJogo.innerHTML = nomeJogador01
+        placarVencedorJogo.innerHTML = placarVitoriaJog01.value
+
+        nomePerdedorJogo.innerHTML = nomeJogador02
+        placarPerdedorJogo.innerHTML = placarVitoriaJog02.value
+
 
     } else if (placarVitoriaJog01.value > placarVitoriaJog02.value){
         fraseGanhador.textContent = "Você Ganhou!!!"
