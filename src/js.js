@@ -44,6 +44,10 @@ let ativarTimer = document.getElementById("time-s");
 let tempoTimer = document.getElementById("js-input-tempo");
 let tempoJog01 = document.querySelector("#js-tempo-jog01 span");
 let tempoJog02 = document.querySelector("#js-tempo-jog02 span");
+let fundoRodada = document.getElementById("js-fundo-rodada");
+let modalRodada = document.getElementById("js-modal-rodada");
+let rodadaAtual = document.getElementById("js-rodada-atual");
+let ultimaRodada = document.getElementById("js-ultima-rodada");
 let nomeJogador01, nomeJogador02
 let numeroAleatorio = 0
 let menorNumero = 0
@@ -181,7 +185,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
                     if (i < quantJogadas.value) {
                         ++i
                         console.log("i é " + i )
-                        novaPartida();
+                        abrirModalRodada();
     
                     } else {
                         encerrarJogo();
@@ -195,7 +199,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
                     if (i < quantJogadas.value) {
                         ++i
                         console.log("i é " + i )
-                        novaPartida();
+                        abrirModalRodada();
     
                     } else {
                         encerrarJogo();
@@ -324,4 +328,17 @@ function desabilitarTemporizador () {
     } else {
         tempoTimer.style.display = "none"
     }
+}
+
+function abrirModalRodada () {
+    rodadaAtual.innerHTML = i
+    ultimaRodada.innerHTML = quantJogadas.value
+    fundoRodada.style.display = "flex"
+    modalRodada.showModal();
+}
+
+function fecharModalRodada () {
+    fundoRodada.style.display = "none"
+    modalRodada.close();
+    novaPartida();
 }

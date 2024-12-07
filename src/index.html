@@ -6,7 +6,7 @@
     <title>Jogo de Adivinhação</title>
     <link rel="stylesheet" href="./css/output.css">
 </head>
-<body>
+<body class="">
     <div id="js-modal-partida" class="hidden m-auto w-full h-full fixed top-0 z-10 flex justify-center items-center bg-[#0000004a]">
         <dialog id="js-modal-iniciar-partida" class="m-auto z-20 border-0 rounded-2xl min-w-96">
             <section class="p-4">
@@ -74,6 +74,26 @@
                     <div class="">
                         <button id="js-botao-encerrar-jogo" class="min-w-40 px-4 py-2 bg-red-500 text-white rounded-lg" onclick="encerrarJogo()">Encerrar Jogo</button>
                     </div>
+                </div>
+            </section>
+        </dialog>
+    </div>
+    <div id="js-fundo-rodada" class="hidden w-full h-full fixed top-0 z-10 flex justify-center items-center bg-[#0000004a]">
+        <dialog id="js-modal-rodada" class="m-auto z-20 border-0 rounded-2xl w-2/5 min-h-96">
+            <section class="flex flex-col justify-center items-center text-center gap-10 p-6">
+                <div class="">
+                    <span class="uppercase font-bold text-5xl">RODADA</span>
+                </div>
+                <div class="flex w-full justify-center items-center gap-7">
+                    <span id="js-rodada-atual" class="uppercase font-bold text-6xl bg-black text-white p-3">1</span>
+                    <span class="uppercase font-bold text-6xl">:</span>
+                    <span id="js-ultima-rodada" class="uppercase font-bold text-6xl bg-black text-white p-3">3</span>
+                </div>
+                <div class="">
+                    <img src="/img/rodada.svg" alt="imagem-rodada" class="w-80">
+                </div>
+                <div class="mt-4">
+                    <button class="min-w-40 px-4 py-2 bg-green-500 text-white rounded-lg font-bold text-xl uppercase" onclick="fecharModalRodada()">Próxima Jogada</button>
                 </div>
             </section>
         </dialog>
