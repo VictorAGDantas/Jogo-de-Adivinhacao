@@ -88,7 +88,6 @@ function criarJogador (receberNomeJogador01,receberNomeJogador02, receberNumeroM
     criarTemporizador(tempo, false);
     modalPartida.style.display = "none"
     abrirModal.close();
-    //solicitarNumeroJogador(receberNomeJogador01,receberNomeJogador02);
 }
 
 function criarTemporizador(tempo, jogador) {
@@ -109,9 +108,61 @@ function criarTemporizador(tempo, jogador) {
 
 }
 
-function iniciarPartida () {
-    modalPartida.style.display = "flex"
-    abrirModal.showModal();
+function abrirOuFecharModalEspecifico (modal, nomejogador) {
+
+    console.log("modal", modal)
+    let modalTipo = (typeof modal === 'string') ? modal : modal.getAttribute('data-modal')
+    console.log(modalTipo)
+    let modalSelecionado 
+
+    if (modalTipo == "iniciar-partida") {
+        modalSelecionado = abrirModal
+    
+    } else if (modalTipo == "rodada-atual") {
+        modalSelecionado = modalRodada
+
+    } else if (modalTipo == "ganhador-partida") {
+        modalSelecionado = modalGanhador
+    }
+
+    if (!modalSelecionado.open) {
+
+        if (modalTipo == "iniciar-partida") {
+            modalPartida.style.display = "flex"
+            abrirModal.showModal();
+
+        } else if (modalTipo == "rodada-atual") {
+            rodadaAtual.innerHTML = i
+            ultimaRodada.innerHTML = quantJogadas.value
+            fundoRodada.style.display = "flex"
+            modalRodada.showModal();
+
+        } else if (modalTipo == "ganhador-partida") {
+            fundoModalGanhador.style.display = "flex"
+            modalGanhador.showModal();
+            nomejogador ? nomeGanhadorPartida.innerHTML = nomejogador : " "
+        }
+
+    } else {
+
+        if (modalTipo == "iniciar-partida") {
+            modalPartida.style.display = "none"
+            abrirModal.close();
+
+        } else if (modalTipo == "rodada-atual") {
+            fundoRodada.style.display = "none"
+            modalRodada.close();
+            novaPartida();
+
+        } else if (modalTipo == "ganhador-partida") {
+            fundoModalGanhador.style.display = "none"
+            modalGanhador.close();
+            placarVencedor.style.display = "none"
+            placarPerdedor.style.display = "none"
+            botoesModalGanhador.style.display = "flex"
+        }
+
+    }
 }
 
 function registroJogadas (numeroJogado, nomeJogador) {
@@ -129,27 +180,10 @@ function registroJogadas (numeroJogado, nomeJogador) {
     }
 }
 
-//let numeroMaximo = 10 //Number(prompt("Digite o maior número que pode ser sorteado: "))
-
 
 function inserirVitoriaJogador (pontosJogador) {
     pontosJogador.value = parseInt(pontosJogador.value) + 1;
 }
-
-function ganhadorPartida (nomejogador) {
-    fundoModalGanhador.style.display = "flex"
-    modalGanhador.showModal();
-    nomejogador ? nomeGanhadorPartida.innerHTML = nomejogador : " "
-}
-
-function fecharModalGanhador () {
-    fundoModalGanhador.style.display = "none"
-    modalGanhador.close();
-    placarVencedor.style.display = "none"
-    placarPerdedor.style.display = "none"
-    botoesModalGanhador.style.display = "flex"
-}
-
 
 function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
     
@@ -161,13 +195,13 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             if (quantJogadas.value == "") {
                 
                 if(jogador) {
-                    ganhadorPartida(nomeJogador01);
+                    abrirOuFecharModalEspecifico("ganhador-partida", nomeJogador01);
                     inserirVitoriaJogador(placarVitoriaJog01);
                     console.log("Jogador " + nomeJogador01 + " GANHOUU!!!");
                     valorDigitadoJog01.value = null
                 
                 } else {
-                    ganhadorPartida(nomeJogador02);
+                    abrirOuFecharModalEspecifico("ganhador-partida", nomeJogador02);
                     inserirVitoriaJogador(placarVitoriaJog02);
                     console.log("Jogador " + nomeJogador02 + " GANHOUU!!!");
                     valorDigitadoJog02.value = null
@@ -185,7 +219,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
                     if (i < quantJogadas.value) {
                         ++i
                         console.log("i é " + i )
-                        abrirModalRodada();
+                        abrirOuFecharModalEspecifico("rodada-atual", false);
     
                     } else {
                         encerrarJogo();
@@ -199,7 +233,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
                     if (i < quantJogadas.value) {
                         ++i
                         console.log("i é " + i )
-                        abrirModalRodada();
+                        abrirOuFecharModalEspecifico("rodada-atual", false);
     
                     } else {
                         encerrarJogo();
@@ -278,11 +312,10 @@ function novaPartida () {
     fundoFraseJogarJog01.classList.add("bg-lime-500");
     fraseJogarJog01.textContent = "Sua vez de jogar"
     geradorNumeroAleatorio(numeroMaximoSorteado.value);
-    fecharModalGanhador();
 }
 
 function encerrarJogo() {
-    ganhadorPartida(false);
+    abrirOuFecharModalEspecifico("ganhador-partida", false);
     placarVencedor.style.display = "flex"
     placarPerdedor.style.display = "flex"
     botoesModalGanhador.style.display = "none"
@@ -328,17 +361,4 @@ function desabilitarTemporizador () {
     } else {
         tempoTimer.style.display = "none"
     }
-}
-
-function abrirModalRodada () {
-    rodadaAtual.innerHTML = i
-    ultimaRodada.innerHTML = quantJogadas.value
-    fundoRodada.style.display = "flex"
-    modalRodada.showModal();
-}
-
-function fecharModalRodada () {
-    fundoRodada.style.display = "none"
-    modalRodada.close();
-    novaPartida();
 }

@@ -46,7 +46,7 @@
     </div>
     <div id="js-modal-ganhador-fundo" class="hidden z-10 w-full h-full fixed flex justify-center items-center bg-[#0000004a]">
         <dialog id="js-modal-ganhador" class="z-20 p-7 rounded-2xl text-center relative overflow-visible">
-            <button id="js-fechar-modal-ganhador" class="absolute -right-5 -top-5 p-2 rounded-full w-12 h-12 bg-black text-white font-bold" onclick="fecharModalGanhador()">X</button>
+            <button id="js-fechar-modal-ganhador" data-modal="ganhador-partida" class="absolute -right-5 -top-5 p-2 rounded-full w-12 h-12 bg-black text-white font-bold" onclick="abrirOuFecharModalEspecifico(this, false)">X</button>
             <section class="flex flex-col justify-center items-center">
                 <div>
                     <span id="js-frase-ganhador" class="text-2xl font-bold">Você Ganhou!!!</span>
@@ -93,7 +93,7 @@
                     <img src="/img/rodada.svg" alt="imagem-rodada" class="w-80">
                 </div>
                 <div class="mt-4">
-                    <button class="min-w-40 px-4 py-2 bg-green-500 text-white rounded-lg font-bold text-xl uppercase" onclick="fecharModalRodada()">Próxima Jogada</button>
+                    <button data-modal="rodada-atual" class="min-w-40 px-4 py-2 bg-green-500 text-white rounded-lg font-bold text-xl uppercase" onclick="abrirOuFecharModalEspecifico(this, false)">Próxima Jogada</button>
                 </div>
             </section>
         </dialog>
@@ -170,7 +170,7 @@
                 <button class="w-36 p-2 text-white font-bold bg-black" onclick="novaPartida()">Restart</button>
             </div>
             <div class="">
-                <button id="js-button-iniciar-partida" class="w-36 p-2 text-white font-bold bg-green-500 " onclick="iniciarPartida()">Iniciar</button>
+                <button id="js-button-iniciar-partida" data-modal="iniciar-partida" class="w-36 p-2 text-white font-bold bg-green-500 " onclick="abrirOuFecharModalEspecifico(this, false)">Iniciar</button>
             </div>
             <div class="">
                 <button class="w-36 p-2 text-white font-bold bg-yellow-500" onclick="  encerrarJogo()">Finalizar</button>
