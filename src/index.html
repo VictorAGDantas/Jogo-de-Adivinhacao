@@ -10,7 +10,7 @@
     <div id="js-modal-partida" class="hidden m-auto w-full h-full fixed top-0 z-10 flex justify-center items-center bg-[#0000004a]">
         <dialog id="js-modal-iniciar-partida" class="m-auto z-20 border-0 rounded-2xl min-w-96">
             <section class="p-4">
-                <form class="flex flex-col gap-4 justify-center items-center" onsubmit="criarJogador(document.getElementById('js-input-nome-jog01').value , document.getElementById('js-input-nome-jog02').value,document.getElementById('js-input-numero-maximo').value ,  document.getElementById('js-input-tempo').value ,event)">
+               <form class="flex flex-col gap-4 justify-center items-center" onsubmit="criarJogador(document.getElementById('js-input-nome-jog01').value , document.getElementById('js-input-nome-jog02').value,document.getElementById('js-input-numero-maximo').value ,  document.getElementById('js-input-tempo').value ,event)">
                     <div class="">
                         <input id="js-input-nome-jog01" class="border-black border-2 rounded-xl px-6 py-2 w-80" type="text" placeholder="Nome do Jogador 01" required>
                     </div>
@@ -134,7 +134,7 @@
                 <span id="js-frase-quem-joga-jog01">Sua vez de jogar</span>
             </div>
             <div class="flex flex-col">
-                <input id="js-input-valor-jog01"  class="text-center rounded-md" type="number" placeholder="Digite um número">
+                <input id="js-input-valor-jog01" class="text-center rounded-md" type="number" placeholder="Digite um número">
                 <button type="button" id="js-botao-jog01" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-disableButton" onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog01').value, true)">Jogar</button>
             </div>
         </section>
@@ -159,7 +159,7 @@
                 <span id="js-frase-quem-joga-jog02">Vez do outro jogador</span>
             </div>
             <div class="flex flex-col">
-                <input id="js-input-valor-jog02" class="text-center rounded-md" type="number" placeholder="Digite um número">
+                <input id="js-input-valor-jog02" class="text-center rounded-md" type="number" placeholder="Digite um número" readonly>
                 <button type="button" id="js-botao-jog02" class="mt-2 p-2 bg-green-500 text-white font-bold disabled:bg-disableButton" disabled onclick="solicitarNumeroJogador(document.getElementById('js-input-valor-jog02').value, false)">Jogar</button>
             </div>
         </section>
@@ -167,13 +167,13 @@
     <footer class="bg-red-500 p-4">
         <section class="flex justify-between items-center">
             <div class="">
-                <button class="w-36 p-2 text-white font-bold bg-black" onclick="novaPartida()">Restart</button>
+                <button id="botao-restart" class="w-36 p-2 text-white font-bold bg-black">Restart</button>
             </div>
             <div class="">
                 <button id="js-button-iniciar-partida" data-modal="iniciar-partida" class="w-36 p-2 text-white font-bold bg-green-500 " onclick="abrirOuFecharModalEspecifico(this, false)">Iniciar</button>
             </div>
             <div class="">
-                <button class="w-36 p-2 text-white font-bold bg-yellow-500" onclick="  encerrarJogo()">Finalizar</button>
+                <button id="botao-finalizar" class="w-36 p-2 text-white font-bold bg-yellow-500">Finalizar</button>
             </div>
         </section>
     </footer>

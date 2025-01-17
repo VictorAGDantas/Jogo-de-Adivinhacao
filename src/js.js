@@ -259,6 +259,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
 
         if (jogador) {
             botaoJogarJog01.disabled = true;
+            valorDigitadoJog01.setAttribute('readonly', '');
             fundoFraseJogarJog01.classList.remove("bg-lime-500");
             fundoFraseJogarJog01.classList.add("bg-gray-500");
             fraseJogarJog01.textContent = "Vez do outro jogador"
@@ -267,6 +268,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
 
 
             botaoJogarJog02.disabled = false;
+            valorDigitadoJog02.removeAttribute('readonly');
             fundoFraseJogarJog02.classList.remove("bg-gray-500");
             fundoFraseJogarJog02.classList.add("bg-lime-500");
             fraseJogarJog02.textContent = "Sua vez de jogar"
@@ -274,6 +276,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
         } else {
 
             botaoJogarJog02.disabled = true;
+            valorDigitadoJog02.setAttribute('readonly', '');
             fundoFraseJogarJog02.classList.remove("bg-lime-500");
             fundoFraseJogarJog02.classList.add("bg-gray-500");
             fraseJogarJog02.textContent = "Vez do outro jogador"
@@ -281,6 +284,7 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
             criarTemporizador(parseInt(tempoTimer.value), false);  
 
             botaoJogarJog01.disabled = false;
+            valorDigitadoJog01.removeAttribute('readonly')
             fundoFraseJogarJog01.classList.remove("bg-gray-500");
             fundoFraseJogarJog01.classList.add("bg-lime-500");
             fraseJogarJog01.textContent = "Sua vez de jogar"
@@ -297,7 +301,9 @@ function solicitarNumeroJogador (novoNumeroUsuario, jogador) {
 
 function novaPartida () {
     botaoJogarJog01.disabled = false;
+    valorDigitadoJog01.removeAttribute('readonly');
     botaoJogarJog02.disabled = true;
+    valorDigitadoJog02.setAttribute('readonly', '')
     menorNumero = 0
     maiorNumero = 0
     numeroMinino.textContent = 0
@@ -311,6 +317,8 @@ function novaPartida () {
     fundoFraseJogarJog01.classList.remove("bg-gray-500");
     fundoFraseJogarJog01.classList.add("bg-lime-500");
     fraseJogarJog01.textContent = "Sua vez de jogar"
+    fundoModalGanhador.style.display = 'none'
+    modalGanhador.close();
     geradorNumeroAleatorio(numeroMaximoSorteado.value);
 }
 
@@ -324,10 +332,10 @@ function encerrarJogo() {
         fraseGanhador.textContent = "Esse Jogo Está"
         nomeGanhadorPartida.innerHTML = "EMPATADO"
 
-        nomeVencedorJogo.innerHTML = nomeJogador01
+        nomeVencedorJogo.innerHTML = (nomeJogador01 == null) ? 'Jogador 01' : nomeJogador01
         placarVencedorJogo.innerHTML = placarVitoriaJog01.value
 
-        nomePerdedorJogo.innerHTML = nomeJogador02
+        nomePerdedorJogo.innerHTML = (nomeJogador02 == null) ? 'Jogador 02' : nomeJogador02
         placarPerdedorJogo.innerHTML = placarVitoriaJog02.value
 
 
@@ -362,3 +370,89 @@ function desabilitarTemporizador () {
         tempoTimer.style.display = "none"
     }
 }
+
+
+// Eventos Desenvolvidos 
+
+// On load - Quando a página foi carregada
+
+window.onload = function () {
+    alert("Página Carregada com Sucesso!");
+}
+
+alert("Página Carregando . . .");
+
+
+// Hover - Ao colocar o Mouse em Cima do Botão - Iniciar
+
+botaoIniciar = document.getElementById("js-button-iniciar-partida");
+
+botaoIniciar.addEventListener("mouseover", function () { // Aplica o Hover
+    botaoIniciar.classList.remove('bg-green-500')
+    botaoIniciar.classList.add('bg-green-600')
+})
+
+botaoIniciar.addEventListener('mouseleave', function () { // Remove o Hover
+    botaoIniciar.classList.remove('bg-green-600')
+    botaoIniciar.classList.add('bg-green-500')
+})
+
+
+// Preenche os Nomes dos Jogadores no momento que solta cada tecla
+
+placarNomeJogador01 = document.getElementById("js-input-nome-jog01");
+placarNomeJogador02 = document.getElementById("js-input-nome-jog02");
+placarNumeroMaximo = document.getElementById('js-input-numero-maximo');
+
+placarNomeJogador01.addEventListener("keyup", function () { // Nome do Jogador 01
+    alterarNomeJogador01.innerHTML = this.value;
+})
+
+placarNomeJogador02.addEventListener("keyup", function () { // Nome do Jogador 02 
+    alterarNomeJogador02.innerHTML = this.value;
+})
+
+placarNumeroMaximo.addEventListener('keyup', function () { // Número Máximo Sorteado
+    numeroMaximo.innerHTML = this.value;
+})
+
+
+// Quando clicar na Tecla Enter após o Jogador digitar o suposto numero sorteado 
+
+valorDigitadoJog01.addEventListener('keypress', function (evento) { // Jogador 01
+    if (evento.key === 'Enter') {
+        botaoJogarJog01.click();
+        valorDigitadoJog02.focus(); // Input do Jogador 2 é Focado
+
+    }
+})
+
+valorDigitadoJog02.addEventListener('keypress', function (evento) { // Jogador 02
+    if (evento.key == 'Enter') {
+        botaoJogarJog02.click();
+        valorDigitadoJog01.focus(); // Input do Jogador 1 é Focado
+    }
+})
+
+// Fiz com que os Inputs dos Jogadores que estão esperando sua vez ficassem no modo Leitura (readonly)
+
+// Fiz no Nova Partida
+
+// Descobri que o Modal Ganhador, não sumia quando clicava em Jogar Novamente
+
+// Descobri que quando clicava no Botão Finalizar, sem ter começado a partida, os nomes dos Jogadores ficavam com Undefined - Fiz o Ajuste Linha 335 e 338
+
+//  Quando clicar nos Botões de Restart e Finalizar - Evento de Click
+
+botaoRestart = document.getElementById('botao-restart');
+botaoFinalizar = document.getElementById('botao-finalizar');
+
+botaoRestart.addEventListener('click', function () {
+    novaPartida()
+});
+
+botaoFinalizar.addEventListener('click', function () {
+    encerrarJogo()
+});
+
+// Descobri um erro quando era a segunda rodada, que os inputs ficavam sem poder adicionar algum numero, mesmo sem os atributos disabled e readonly
